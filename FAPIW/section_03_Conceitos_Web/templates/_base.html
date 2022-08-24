@@ -6,11 +6,12 @@
     <title>FastAPI Web na Dlc Tecnologia</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      body {
-        background: #d8d9e4;
-      }
-    </style>
+    {% block style %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/styles.css') }}"
+    />
+    {% endblock %}
   </head>
   <body>
     <h1>FastApi Web</h1>
