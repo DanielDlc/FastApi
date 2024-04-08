@@ -6,4 +6,4 @@ app = FastAPI()
 
 @app.get('/')
 async def raiz():
-    return {"msg": "Hello World" }
+    return {"msg": "Hello, World!" }
