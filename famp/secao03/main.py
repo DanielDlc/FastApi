@@ -70,6 +70,12 @@ async def delete_curso(curso_id: int):
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Não existe um curso com id{curso_id}')
+    
+@app.get ('/calculadora') 
+async def calcular(a: int, b: int, c: int):
+    soma = a + b + c
+    
+    return {"resultado": soma}
 
 if __name__ == '__main__':
     import uvicorn
