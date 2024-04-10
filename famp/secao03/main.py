@@ -72,8 +72,10 @@ async def delete_curso(curso_id: int):
                             detail=f'Não existe um curso com id{curso_id}')
     
 @app.get ('/calculadora') 
-async def calcular(a: int, b: int, c: int):
-    soma = a + b + c
+async def calcular(a: int, b: int, c: Optional[int] = None):
+    soma: int = a + b
+    if c:
+        soma += c
     
     return {"resultado": soma}
 
