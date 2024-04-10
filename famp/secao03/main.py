@@ -3,6 +3,7 @@ from typing import List, Optional
 from fastapi.responses import JSONResponse
 from fastapi import Response
 from fastapi import Path
+from fastapi import Query
 
 from fastapi import FastAPI
 from fastapi import HTTPException
@@ -72,7 +73,9 @@ async def delete_curso(curso_id: int):
                             detail=f'Não existe um curso com id{curso_id}')
     
 @app.get ('/calculadora') 
-async def calcular(a: int, b: int, c: Optional[int] = None):
+async def calcular(a: int = Query(default=None, gt=5),
+                    b: int = Query(default=None, gt=10),
+                      c: Optional[int] = None):
     soma: int = a + b
     if c:
         soma += c
