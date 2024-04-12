@@ -52,3 +52,26 @@ async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
         else:
             raise HTTPException(detail='Curso não encontrado.',
                                 status_code=status.HTTP_404_NOT_FOUND)
+        
+#PUT curso
+@router.put('/{curso_id}', response_model=CursoSchema,
+            status_code=status.HTTP_202_ACCEPTED)
+async def put_curso(cuso_id: int, curso: CursoSchema,
+                    db: AsyncSession = Depends(get_session)):
+    async with db as session:
+        query = select(CursoModel).filter(CursoModel.id == curso_id)
+        result = await session.execute(query)
+        curso_up = result.scalar_one_or_none()
+
+        if curso_up:
+            curso_up.titulo = curso.titulo
+            curso_up.aulas = curso.aulas
+            curso_up.horas  = curso.horas 
+
+            await session.commit()
+            return curso_up
+
+        else:
+            raise HTTPException(detail='Curso não encontrado.',
+                                status_code=status.HTTP_404_NOT_FOUND)
+    
