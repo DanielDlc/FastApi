@@ -35,3 +35,14 @@ async def post_curso(curso: CursoModel, db: AsyncSession = Depends(get_session))
 
     return novo_curso
 
+
+
+#GET cursos
+@router.get('/', response_model=List[CursoModel])
+async def get_cursos(db:AsyncSession = Depends(get_session)):
+    async with db as session:
+        query = select(CursoModel)
+        result = await session.execute(query)
+        cursos: List[CursoModel] = result.scalars().all()
+
+        return cursos
