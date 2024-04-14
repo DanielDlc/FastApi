@@ -69,8 +69,8 @@ async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
 
 # PUT curso
 @router.put('/{curso_id}',
-             response_model=CursoModel,
-             status_code=status.HTTP_202_ACCEPTED)
+             status_code=status.HTTP_202_ACCEPTED,
+             response_model=CursoModel)
 async def put_curso(curso_id: int, curso: CursoModel,
                     db: AsyncSession = Depends(get_session)):
         async with db as session:
