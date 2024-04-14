@@ -37,7 +37,7 @@ async def post_curso(curso: CursoModel, db: AsyncSession = Depends(get_session))
 
 
 
-#GET cursos
+# GET cursos
 @router.get('/', response_model=List[CursoModel])
 async def get_cursos(db:AsyncSession = Depends(get_session)):
     async with db as session:
@@ -49,7 +49,7 @@ async def get_cursos(db:AsyncSession = Depends(get_session)):
     
 
 
-#GET curso
+# GET curso
 @router.get('/{curso_id}',
             response_model=CursoModel,
             status_code=status.HTTP_200_OK)
@@ -67,7 +67,7 @@ async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
 
 
 
-#PUT curso
+# PUT curso
 @router.put('/{curso_id}',
              response_model=CursoModel,
              status_code=status.HTTP_202_ACCEPTED)
@@ -90,3 +90,21 @@ async def put_curso(curso_id: int, curso: CursoModel,
             raise HTTPException(detail=('curso não encontrado.'),
                                 status_code=status.HTTP_404_NOT_FOUND)
             
+
+# DELETE curso
+@router.delete('/{curso_id}', status_code=status.HTTP_204_NO_CONTENT)
+async def delete_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
+    async with db as session:
+            query = select(CursoModel).filter(CursoModel.id == curso_id)
+            result = await session.execute(query)
+            curso_del: CursoModel = result.scalar_one_or_none()
+
+            if curso_del:
+                 await session.delete(curso_del)
+                 await session.commit()
+
+                 # isso é adicionado de acodo com a versão do FastAPI
+                 return Response(status_code=status.HTTP_204_NO_CONTENT)
+            else:
+                 raise HTTPException(detail='Curso não encontrado.',
+                                     status_code=status.HTTP_404_NOT_FOUND)
