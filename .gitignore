@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-poetry.lock
+# poetry.lock (decidi subir esse arquivo no repositório)
 build/
 develop-eggs/
 dist/
