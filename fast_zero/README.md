@@ -4,3 +4,8 @@
 <p align="center">
     <em>FastAPI framework, high performance, easy to learn, fast to code, ready for production</em>
 </p>
+
+### Wiki
+
+Configurando Ambiente
+[Link](https://github.com/DanielDlc/FastApi/wiki/fast_zero)
