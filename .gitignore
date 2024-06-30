@@ -129,3 +129,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 fast_zero/pyproject.toml.bak
+fast_zero/database.db
